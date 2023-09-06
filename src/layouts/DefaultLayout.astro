@@ -10,6 +10,7 @@ const {
   url,
   image = '/social-preview-image.png',
   author = 'Mark Teekman',
+  subtitle = 'Alex Nivelle',
 } = Astro.props
 ---
 
@@ -24,6 +25,7 @@ const {
 
     <SiteMeta
       title={title}
+      subtitle={subtitle}
       description={description.substring(0, 100)}
       url={Astro.site
         ? `${Astro.site}/${title.toLowerCase().replaceAll(' ', '-')}`
