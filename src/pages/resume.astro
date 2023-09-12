@@ -1,0 +1,23 @@
+---
+import DefaultLayout from '../layouts/DefaultLayout.astro'
+import resume from '../assets/Nivelle_Alexander.pdf'
+---
+
+<DefaultLayout title="Resume">
+  <section class="content">
+    <div class="container">
+      <h1>My Resume</h1>
+      <div class="resume">
+        <embed class="span12" type="application/pdf" src={resume} width="1200" height="1200" />
+      </div>
+    </div>
+  </section>
+</DefaultLayout>
+
+<style lang="scss">
+  .resume {
+    display: flex;
+    //align-items: center;
+    justify-content: center;
+  }
+</style>
