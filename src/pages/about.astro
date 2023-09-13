@@ -4,17 +4,21 @@ import Hero from '../components/Hero.astro'
 import Feature from '../components/Feature.astro'
 import Counter from '../components/Counter.astro'
 import ContentMedia from '../components/ContentMedia.astro'
+import Slideshow from '../components/Slideshow.astro'
+import { Image } from 'astro:assets'
+import image1 from '../assets/img/DSC_0312.JPG'
+import image2 from '../assets/img/DSC_0350.JPG'
+const images = [image1, image2]
 ---
 
 <DefaultLayout title="About Me">
   <div class="container">
     <h1>About Me</h1>
-    <ul>
-      <li>Hello</li>
-    </ul>
+    <Slideshow>
+      {images.map((item) => <Image class="slide rounded-lg" src={item} alt="" />)}
+    </Slideshow>
   </div>
 </DefaultLayout>
-
 <style lang="scss">
   ul {
     list-style: inside;

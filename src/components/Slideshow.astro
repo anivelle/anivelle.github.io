@@ -1,0 +1,92 @@
+---
+// Slideshow HTML, CSS, and JS from here
+// https://www.w3schools.com/howto/howto_js_slideshow.asp
+import ContentMedia from '../components/ContentMedia.astro'
+---
+
+<div class="slide_container">
+  <button class="prev">&larr;</button>
+  <button class="next">&rarr;</button>
+  <slot />
+</div>
+
+<style lang="scss">
+  .slide_container {
+    max-width: 1000px;
+    position: relative;
+    top: 100px;
+    margin: auto;
+  }
+  .slide {
+    display: none;
+  }
+  .prev,
+  .next {
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    width: auto;
+    margin-top: -22px;
+    padding: 16px;
+    color: white;
+    font-weight: bold;
+    font-size: 18px;
+    transition: 0.2s ease;
+    border: none;
+    border-radius: 0 3px 3px 0;
+    user-select: none;
+  }
+  .next {
+    right: 0;
+    border-radius: 3px 0 0 3px;
+  }
+  .prev:hover,
+  .next:hover {
+    background-color: rgba(200, 200, 200, 0.7);
+  }
+</style>
+
+<script>
+  let slideIndex = 0
+  showSlides(slideIndex)
+
+  let buttonPrev = document.querySelectorAll('button.prev')[0]
+  let buttonNext = document.querySelectorAll('button.next')[0]
+
+  buttonPrev.addEventListener('click', () => {
+    plusSlides(-1)
+  })
+  buttonNext.addEventListener('click', () => {
+    plusSlides(1)
+  })
+
+  // Next/previous controls
+  function plusSlides(n) {
+    showSlides((slideIndex += n))
+  }
+
+  // Thumbnail image controls
+  function currentSlide(n) {
+    showSlides((slideIndex = n))
+  }
+
+  function showSlides(n) {
+    let i
+    let slides = document.getElementsByClassName('slide')
+    //let dots = document.getElementsByClassName("dot");
+    if (n > slides.length - 1) {
+      slideIndex = 0
+    }
+    if (n < 0) {
+      slideIndex = slides.length - 1
+    }
+    for (i = 0; i < slides.length; i++) {
+      slides[i].style.display = 'none'
+    }
+    //for (i = 0; i < dots.length; i++) {
+    //  dots[i].className = dots[i].className.replace(' active', '')
+    //}
+    slides[slideIndex].style.display = 'block'
+    //dots[slideIndex - 1].className += ' active'
+  }
+</script>
