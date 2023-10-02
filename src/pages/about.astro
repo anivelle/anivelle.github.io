@@ -9,6 +9,38 @@ import ContentMedia from '../components/ContentMedia.astro'
 <DefaultLayout title="About Me">
   <div class="container">
     <h1>About Me</h1>
-    <a href="/photography">My Photography</a>
+    <h2>Skills</h2>
+      <ul>
+        <li>C/C++</li>
+        <li>Debugging</li>
+        <li>PCB Design</li>
+        <li>CAD Design</li>
+        <li>Reverse engineering</li>
+      </ul>
+    <h2>Interests</h2>
+      <ul>
+        <li>Operating systems</li>
+        <li>Embedded devices</li>
+        <li>Robots</li>
+        <li>Linux</li>
+        <li>Computer graphics</li>
+      </ul>
+    <h2>Hobbies</h2>
+      <ul>
+        <li>Reading</li>
+        <li>Gardening</li>
+        <li>Cooking</li>
+        <li>Video games</li>
+        <li> <a href="/photography">Photography</a> </li>
+        <li>Birdwatching</li>
+        <li>Fencing</li>
+        <li>Volleyball</li>
+      </ul>
   </div>
 </DefaultLayout>
+
+<style lang="scss">
+  ul {
+    list-style: inside;
+  }
+</style>

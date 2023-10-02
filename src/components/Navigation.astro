@@ -33,6 +33,7 @@ import logo from '../assets/img/logo.svg'
   const mainNav = document.querySelector('#main-navigation')
   const mainMenu = mainNav.querySelector('ul')
   const dropdownMenus = [...document.querySelectorAll('.has-dropdown button')]
+  const dropdownList = [...document.querySelectorAll('.dropdown-menu')]
 
   // functions
   const setActiveMenuItem = () => {
@@ -85,11 +86,18 @@ import logo from '../assets/img/logo.svg'
     }
   }
 
+  const openDM = (event) => {
+    openDropdownMenu(event.target.parentNode.querySelector('button'))
+  }
+
   const closeDropdownMenu = (dropdownMenu) => {
     dropdownMenu.classList.remove('show')
     dropdownMenu.setAttribute('aria-expanded', 'false')
   }
 
+  const closeDM = (event) => {
+    closeDropdownMenu(event.target.parentNode.querySelector('button'))
+  }
   const closeAllDropdownMenus = () => {
     for (let i = 0; i < dropdownMenus.length; i++) {
       closeDropdownMenu(dropdownMenus[i])
@@ -193,7 +201,7 @@ import logo from '../assets/img/logo.svg'
     dropdownMenus.forEach((dropdownMenu) => {
       dropdownMenu.addEventListener('click', toggleDropdownMenu)
     })
-
+  
   setActiveMenuItem()
   checkMenuSize()
 
