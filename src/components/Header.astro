@@ -2,13 +2,9 @@
 import Navigation from '../components/Navigation.astro'
 import { SkipLinks } from 'accessible-astro-components'
 import { Icon } from 'astro-icon'
-import Projects from '../assets/Projects.json'
+import { getCollection, getEntry } from 'astro:content'
 
-  
-export async function getStaticPaths({ paginate }) {
-
-  return paginate(Projects, { pageSize: 6 })
-}
+export const allProjects = await getEntry('projects', 'Projects')
 
 const { page } = Astro.props
 ---
@@ -28,11 +24,12 @@ const { page } = Astro.props
           <a href="/blog/">All Projects</a>
         </li>
           {
-            page.data.map((project) =>(
+            allProjects.data.map((project) =>(
             <li class="submenu-item">
               <a href={"/blog/"+ project.title.replaceAll(' ',
-                  '-').toLowercase()}>{project.title}</a>
-            </li>))
+                  '-').toLowerCase()}>{project.title}</a>
+            </li>
+            ))
           }
       </ul>
     </li>
