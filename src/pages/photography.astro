@@ -10,7 +10,7 @@ const images = [image1, image2]
   <div class="container">
     <h1>My Photos</h1>
         <Slideshow>
-          {images.map((item) => <Image class="slide rounded-lg" src={item} alt=""
+          {images.map((item) => <img class="slide rounded-lg" src={item.src} alt=""
             width = "800" />)}
         </Slideshow>
   </div>
