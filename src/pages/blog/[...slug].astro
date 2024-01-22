@@ -1,47 +1,51 @@
 ---
 import DefaultLayout from '../../layouts/DefaultLayout.astro'
 import { Breadcrumbs, BreadcrumbsItem } from 'accessible-astro-components'
-import Projects from '../../content/projects/Projects.json'
+import { getCollection } from 'astro:content'
+
 
 export async function getStaticPaths() {
+  const blogEntries = await getCollection('blog')
 
-  return Projects.map((post) => {
+  return blogEntries.map(post => {
     return {
-      params: { post: post.title.replaceAll(' ', '-').toLowerCase() },
+      params: { slug: post.slug },
       props: { post },
     }
   })
 }
 
 const { post } = Astro.props
+const { Content } = await post.render()
 ---
 
-<DefaultLayout title={post.title} description={post.body} url={post.title}>
+<DefaultLayout title={post.data.title} description={post.data.slug}
+  url={post.slug}>
   <div class="container">
     <div class="mt-12">
       <Breadcrumbs>
         <BreadcrumbsItem href="/" label="Home" />
         <BreadcrumbsItem href="/blog" label="Blog" />
-        <BreadcrumbsItem currentPage={true} label={post.title} />
+        <BreadcrumbsItem currentPage={true} label={post.data.title} />
       </Breadcrumbs>
     </div>
   </div>
   <section class="my-12">
     <div class="container">
-      <h1>{post.title}</h1><br />
-      <p>By userId: {post.userId}</p>
+      <h1>{post.data.title}</h1><br />
     </div>
   </section>
   <section class="my-12">
-    <div class="container">
-      <p class="text-2xl">{post.body}</p>
+    <div class="list-inside container">
+      <Content />
     </div>
   </section>
 </DefaultLayout>
 
 <style lang="scss">
   ul {
-    display: grid;
+    display: block;
+    list-style: inside;
     grid-template-columns: 1fr;
     grid-gap: 4rem;
 
@@ -53,5 +57,14 @@ const { post } = Astro.props
     @media (min-width: 950px) {
       grid-template-columns: repeat(3, 1fr);
     }
+  }
+  li {
+    display: list-item;
+  }
+  img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 40%;
   }
 </style>

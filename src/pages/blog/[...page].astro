@@ -1,11 +1,13 @@
 ---
 import DefaultLayout from '../../layouts/DefaultLayout.astro'
 import { Card, Pagination } from 'accessible-astro-components'
-import Projects from '../../content/projects/Projects.json'
+import { getCollection } from 'astro:content'
+const Pages  = '../../assets/BlogPages.json'
+
 
 export async function getStaticPaths({ paginate }) {
-
-  return paginate(Projects, { pageSize: 6 })
+  const blogEntries = await getCollection('blog')
+  return paginate(blogEntries, { pageSize: 6 })
 }
 
 const { page } = Astro.props
@@ -28,11 +30,11 @@ const { page } = Astro.props
           page.data.map((post) => (
             <li>
               <Card
-                url={'/blog/' + post.title.replaceAll(' ', '-').toLowerCase()}
-                title={post.title}
-                footer={'Status: ' + post.status}
+                url={'/blog/' + post.slug}
+                title={post.data.title}
+                footer={""}
               >
-                {post.body}
+                {post.data.brief}
               </Card>
             </li>
           ))
@@ -45,7 +47,7 @@ const { page } = Astro.props
           nextPage={page.url.next ? page.url.next : null}
           lastPage={page.url.next ? `/blog/${Math.round(page.total / page.size)}` : null}
           currentPage={page.currentPage}
-          totalPages={Math.round(page.total / page.size)}
+          totalPages={Math.round(page.total / page.size) + 1}
         />
       </div>
     </div>

@@ -1,0 +1,40 @@
+---
+title: DShot and its Implementation
+brief: An exploration of the DShot protocol for drone ESCs and how I implemented it on an nRF52840 chip
+---
+import pic from "../../assets/img/DSC_0312.JPG"
+import '../../assets/scss/mdx.scss'
+import {Code} from 'astro:components'
+
+<img src={pic.src} alt="Test pic of the moon"  />
+
+- Video of a drone motor spinning
+
+## What is DShot?
+- Digital protocol for drone ESCs
+  - 16 bits \<--- scope trace here
+## Potential Implementations
+- Bit-banging with timers
+- (Easier) PWM
+  - Code review
+```c 
+for (int i = 0; i <= 16; i++) {
+    for (j = 0; j < 4; j++) {
+        sequence[(i << 2) + j] = (5 * (1 << ((temp[j] >> (15 - i)) & 1))) | (1 << 15);
+    }
+}
+```
+  
+  Breaking down this long piece of bit-shifting, there are three main parts:
+
+{/* Oh thank god this exists */}
+<div class="code-center">
+  <Code code={`sequence[((15 - i) << 2) + j]`} lang="c" inline/>
+</div>
+<div class="code-center">
+  <Code code={`(5 * (1 << ((temp[j] >> i) & 1)))`} lang="c" inline/>
+</div>
+  and 
+<div class="code-center">
+  <Code code={`| (1 << 15);`} lang="c" inline/>
+</div>

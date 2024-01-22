@@ -4,7 +4,7 @@ import { SkipLinks } from 'accessible-astro-components'
 import { Icon } from 'astro-icon'
 import { getCollection, getEntry } from 'astro:content'
 
-export const allProjects = await getEntry('projects', 'Projects')
+export const allPosts = await getCollection('blog')
 
 const { page } = Astro.props
 ---
@@ -21,13 +21,12 @@ const { page } = Astro.props
       <button type="submit" aria-haspopup="true" aria-expanded="false">Projects</button>
       <ul class="dropdown-menu">
         <li class="submenu-item">
-          <a href="/blog/">All Projects</a>
+          <a href="/blog">All Posts</a>
         </li>
           {
-            allProjects.data.map((project) =>(
+            allPosts.map((post) =>(
             <li class="submenu-item">
-              <a href={"/blog/"+ project.title.replaceAll(' ',
-                  '-').toLowerCase()}>{project.title}</a>
+              <a href={"/blog/"+ post.slug}>{post.data.title}</a>
             </li>
             ))
           }
@@ -44,9 +43,6 @@ const { page } = Astro.props
 <style lang="scss" is:global>
   @use '../assets/scss/base/outline' as *;
 
-  .form {
-    display: inline;
-  }
   header {
     .type-icon a {
       display: block;

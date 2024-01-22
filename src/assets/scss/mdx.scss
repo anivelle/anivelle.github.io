@@ -1,0 +1,28 @@
+@use 'base/breakpoint' as *;
+
+img, video {
+  margin: auto;
+  display: auto;
+  border-radius: 10px;
+  width: 60%;
+}
+
+ul:not([class]) {
+  list-style: inside;
+}
+
+.code-center {
+  margin: auto;
+  text-align: center;
+  > code {
+    padding: 1rem 1rem;
+    border-radius: 0.35rem;
+    border-width: 2px;
+    border-color: var(--action-color);
+    display: inline-block;
+    & > span.line {
+      padding: 16px 0;
+  }
+  }
+  // padding: 1rem;
+}
